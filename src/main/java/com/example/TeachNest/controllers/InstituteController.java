@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/api/institute")
@@ -24,5 +21,10 @@ public class InstituteController {
     public ResponseEntity<Institute> registerInstitute(@Valid @RequestBody Institute institute) {
         Institute registerInstitute = instituteService.registerInstitute(institute);
         return new ResponseEntity<>(registerInstitute, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/user-name-exist/{username}")
+    public ResponseEntity<String> isUserNameExist(@PathVariable String username) {
+        return ResponseEntity.status(instituteService.isUserNameExist(username)).body("");
     }
 }
