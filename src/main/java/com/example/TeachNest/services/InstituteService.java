@@ -13,8 +13,8 @@ public class InstituteService {
     private InstituteRepository instituteRepository;
 
     public Institute registerInstitute(Institute institute) {
-//        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//        institute.setPassword(bCryptPasswordEncoder.encode(institute.getPassword()));
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        institute.setPassword(bCryptPasswordEncoder.encode(institute.getPassword()));
         return instituteRepository.insert(institute);
     }
 }
