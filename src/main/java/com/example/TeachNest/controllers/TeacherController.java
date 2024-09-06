@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/api/teacher")
@@ -29,6 +26,17 @@ public class TeacherController {
                         HttpStatus.OK,
                         "Teacher Registered Successfully",
                         teacherService.registerTeacher(teacher)
+                )
+        );
+    }
+
+    @GetMapping("/{instituteUsername}")
+    public ResponseEntity<ResponseModel> getTeachersByInstituteUsername(@PathVariable("instituteUsername") String instituteUsername) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "Successfully getting teacher list of "+instituteUsername+" institute",
+                        teacherService.getTeacherByInstituteUsername(instituteUsername)
                 )
         );
     }
