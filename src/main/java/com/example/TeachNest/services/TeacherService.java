@@ -3,6 +3,7 @@ package com.example.TeachNest.services;
 import com.example.TeachNest.entities.Teacher;
 import com.example.TeachNest.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class TeacherService {
 
     public List<Teacher> getTeacherByInstituteUsername(String instituteUsername) {
         return teacherRepository.findByInstituteUsername(instituteUsername);
+    }
+
+    public HttpStatus isTeacherExist(String username) {
+        boolean isTeacherExist = teacherRepository.existsById(username);
+        return isTeacherExist ? HttpStatus.FOUND : HttpStatus.NOT_FOUND;
     }
 }

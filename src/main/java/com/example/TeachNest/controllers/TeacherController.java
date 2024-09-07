@@ -40,4 +40,26 @@ public class TeacherController {
                 )
         );
     }
+
+    @GetMapping("/user-name-exist/{username}")
+    public ResponseEntity<ResponseModel> isTeacherExists(@PathVariable String username) {
+        HttpStatus httpStatus = teacherService.isTeacherExist(username);
+        if (httpStatus == HttpStatus.FOUND) {
+            return ResponseUtil.getResponse(
+                    new ResponseModel(
+                            HttpStatus.FOUND,
+                            "",
+                            ""
+                    )
+            );
+        } else {
+            return ResponseUtil.getResponse(
+                    new ResponseModel(
+                            HttpStatus.NOT_FOUND,
+                            "",
+                            ""
+                    )
+            );
+        }
+    }
 }
