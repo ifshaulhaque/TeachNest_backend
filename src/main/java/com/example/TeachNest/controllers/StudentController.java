@@ -1,6 +1,7 @@
 package com.example.TeachNest.controllers;
 
 import com.example.TeachNest.entities.Student;
+import com.example.TeachNest.entities.StudentAttendance;
 import com.example.TeachNest.models.ResponseModel;
 import com.example.TeachNest.services.StudentService;
 import com.example.TeachNest.utils.ResponseUtil;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/api/student")
@@ -61,5 +64,27 @@ public class StudentController {
                     )
             );
         }
+    }
+
+    @PostMapping("/attendance")
+    public ResponseEntity<ResponseModel> addStudentAttendance(@Valid @RequestBody StudentAttendance studentAttendance) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "Attendance marked successfully",
+                        studentService.addStudentAttendance(studentAttendance)
+                )
+        );
+    }
+
+    @PostMapping("/attendances")
+    public ResponseEntity<ResponseModel> addStudentAttendanceList(@Valid @RequestBody List<StudentAttendance> studentAttendanceList) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "Attendances marked successfully",
+                        studentService.addStudentAttendanceList(studentAttendanceList)
+                )
+        );
     }
 }

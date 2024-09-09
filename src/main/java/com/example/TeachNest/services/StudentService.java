@@ -1,6 +1,8 @@
 package com.example.TeachNest.services;
 
 import com.example.TeachNest.entities.Student;
+import com.example.TeachNest.entities.StudentAttendance;
+import com.example.TeachNest.repositories.StudentAttendanceRepository;
 import com.example.TeachNest.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,10 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private StudentAttendanceRepository studentAttendanceRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public Student registerStudent(Student student) {
@@ -28,5 +34,13 @@ public class StudentService {
     public HttpStatus isStudentExist(String username) {
         boolean isTeacherExist = studentRepository.existsById(username);
         return isTeacherExist ? HttpStatus.FOUND : HttpStatus.NOT_FOUND;
+    }
+
+    public StudentAttendance addStudentAttendance(StudentAttendance studentAttendance) {
+        return studentAttendanceRepository.insert(studentAttendance);
+    }
+
+    public List<StudentAttendance> addStudentAttendanceList(List<StudentAttendance> studentAttendanceList) {
+        return studentAttendanceRepository.insert(studentAttendanceList);
     }
 }
