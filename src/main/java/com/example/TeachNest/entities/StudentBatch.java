@@ -15,7 +15,8 @@ public class StudentBatch {
     private String name;
     private Date startDate;
     private Date endDate;
-    private Date batchTiming;
+    private Date startTiming;
+    private Date endTiming;
     private List<String> studentsUsername;
     private String instituteUsername;
     private String teacherUsername;
