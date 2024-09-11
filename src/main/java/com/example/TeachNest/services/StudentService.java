@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -42,5 +42,15 @@ public class StudentService {
 
     public List<StudentAttendance> addStudentAttendanceList(List<StudentAttendance> studentAttendanceList) {
         return studentAttendanceRepository.insert(studentAttendanceList);
+    }
+
+    public Student addBatch(String studentUsername, String batchId) {
+        Student student = studentRepository.findById(studentUsername).get();
+        if (student.getBatchIds() == null) {
+            student.setBatchIds(new HashSet<>(){{ add(batchId); }});
+        } else {
+            student.getBatchIds().add(batchId);
+        }
+        return studentRepository.save(student);
     }
 }
