@@ -98,4 +98,15 @@ public class StudentController {
                 )
         );
     }
+
+    @GetMapping("/batch/{batchId}")
+    public ResponseEntity<ResponseModel> getStudentFromBatch(@PathVariable("batchId") String batchId) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "Succefully fetch students from batchId : " + batchId,
+                        studentService.getStudentFromBatch(batchId)
+                )
+        );
+    }
 }
