@@ -44,8 +44,8 @@ public class StudentController {
         );
     }
 
-    @GetMapping("/{instituteUsername}")
-    public ResponseEntity<ResponseModel> getStudentsByInstituteUsername(@PathVariable("instituteUsername") String instituteUsername) {
+    @GetMapping("/")
+    public ResponseEntity<ResponseModel> getStudentsByInstituteUsername(@RequestParam("instituteUsername") String instituteUsername) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
                         HttpStatus.OK,
