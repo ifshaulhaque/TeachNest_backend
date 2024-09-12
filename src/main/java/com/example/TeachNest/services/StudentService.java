@@ -44,12 +44,12 @@ public class StudentService {
         return studentAttendanceRepository.insert(studentAttendanceList);
     }
 
-    public Student addBatch(String studentUsername, String batchId) {
+    public Student addBatch(String studentUsername, List<String> batchId) {
         Student student = studentRepository.findById(studentUsername).get();
         if (student.getBatchIds() == null) {
-            student.setBatchIds(new HashSet<>(){{ add(batchId); }});
+            student.setBatchIds(new HashSet<>(){{ addAll(batchId); }});
         } else {
-            student.getBatchIds().add(batchId);
+            student.getBatchIds().addAll(batchId);
         }
         return studentRepository.save(student);
     }

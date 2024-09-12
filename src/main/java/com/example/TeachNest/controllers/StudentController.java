@@ -88,13 +88,13 @@ public class StudentController {
         );
     }
 
-    @PatchMapping
-    public ResponseEntity<ResponseModel> addBatch(@RequestParam("studentUsername") String studentUsername, @RequestParam("batchId") String batchId) {
+    @PatchMapping("/batch")
+    public ResponseEntity<ResponseModel> addBatches(@RequestParam("studentUsername") String studentUsername, @RequestParam("batchId") List<String> batchesId) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
                         HttpStatus.OK,
                         "batch added",
-                        studentService.addBatch(studentUsername, batchId)
+                        studentService.addBatch(studentUsername, batchesId)
                 )
         );
     }
