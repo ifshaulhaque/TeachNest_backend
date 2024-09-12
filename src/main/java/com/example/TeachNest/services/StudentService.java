@@ -50,15 +50,15 @@ public class StudentService {
 
     public Student addBatch(String studentUsername, List<String> batchId) {
         Student student = studentRepository.findById(studentUsername).get();
-        if (student.getBatchIds() == null) {
-            student.setBatchIds(new HashSet<>(){{ addAll(batchId); }});
+        if (student.getBatchesId() == null) {
+            student.setBatchesId(new HashSet<>(){{ addAll(batchId); }});
         } else {
-            student.getBatchIds().addAll(batchId);
+            student.getBatchesId().addAll(batchId);
         }
         return studentRepository.save(student);
     }
 
     public List<Student> getStudentFromBatch(String batchId) {
-        return studentRepository.findByBatchIdsContaining(batchId);
+        return studentRepository.findByBatchesIdContaining(batchId);
     }
 }
