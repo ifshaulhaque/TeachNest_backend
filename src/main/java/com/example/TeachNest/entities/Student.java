@@ -6,7 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashSet;
-import java.util.List;
 
 @Data
 @Document(collection = "students")
@@ -19,5 +18,5 @@ public class Student {
     @NotBlank(message = "Password is required")
     private String password;
     private String instituteUsername;
-    private HashSet<String> batchIds;
+    private HashSet<String> batchesId;
 }

@@ -13,6 +13,10 @@ public class BatchService {
     @Autowired
     private StudentBatchRepository studentBatchRepository;
 
+    public List<StudentBatch> getBatches(List<String> batchesId) {
+        return studentBatchRepository.findAllById(batchesId);
+    }
+
     public StudentBatch addBatch(StudentBatch studentBatch) {
         return studentBatchRepository.insert(studentBatch);
     }

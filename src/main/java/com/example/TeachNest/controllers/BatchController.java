@@ -9,12 +9,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/api/batch")
 public class BatchController {
 
     @Autowired
     private BatchService batchService;
+
+    @GetMapping("/getBatches")
+    public ResponseEntity<ResponseModel> getBatches(@RequestBody List<String> batchesId) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "batch list fetched",
+                        batchService.getBatches(batchesId)
+                )
+        );
+    }
 
     @PostMapping("/add")
     public ResponseEntity<ResponseModel> addBatch(@RequestBody StudentBatch studentBatch) {
