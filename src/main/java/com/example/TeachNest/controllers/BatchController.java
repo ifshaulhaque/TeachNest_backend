@@ -18,7 +18,7 @@ public class BatchController {
     @Autowired
     private BatchService batchService;
 
-    @GetMapping("/getBatches")
+    @PostMapping("/getBatches")
     public ResponseEntity<ResponseModel> getBatches(@RequestBody List<String> batchesId) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
