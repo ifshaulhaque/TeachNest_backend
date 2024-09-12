@@ -100,12 +100,12 @@ public class StudentController {
     }
 
     @PatchMapping("/batch")
-    public ResponseEntity<ResponseModel> addBatches(@RequestParam("studentUsername") String studentUsername, @RequestParam("batchesId") List<String> batchesId) {
+    public ResponseEntity<ResponseModel> updateBatch(@RequestParam("studentUsername") String studentUsername, @RequestParam("batchesId") List<String> batchesId) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
                         HttpStatus.OK,
                         "batch added",
-                        studentService.addBatch(studentUsername, batchesId)
+                        studentService.updateBatch(studentUsername, batchesId)
                 )
         );
     }

@@ -48,13 +48,9 @@ public class StudentService {
         return studentAttendanceRepository.insert(studentAttendanceList);
     }
 
-    public Student addBatch(String studentUsername, List<String> batchId) {
+    public Student updateBatch(String studentUsername, List<String> batchId) {
         Student student = studentRepository.findById(studentUsername).get();
-        if (student.getBatchesId() == null) {
-            student.setBatchesId(new HashSet<>(){{ addAll(batchId); }});
-        } else {
-            student.getBatchesId().addAll(batchId);
-        }
+        student.setBatchesId(new HashSet<>(){{ addAll(batchId); }});
         return studentRepository.save(student);
     }
 
