@@ -22,6 +22,17 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @GetMapping("/{username}")
+    public ResponseEntity<ResponseModel> getStudentByUsername(@PathVariable("username") String username) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "student fetched",
+                        studentService.getStudentByUsername(username)
+                )
+        );
+    }
+
     @PostMapping("/register")
     public ResponseEntity<ResponseModel> registerStudent(@Valid @RequestBody Student student) {
         return ResponseUtil.getResponse(
@@ -89,7 +100,7 @@ public class StudentController {
     }
 
     @PatchMapping("/batch")
-    public ResponseEntity<ResponseModel> addBatches(@RequestParam("studentUsername") String studentUsername, @RequestParam("batchId") List<String> batchesId) {
+    public ResponseEntity<ResponseModel> addBatches(@RequestParam("studentUsername") String studentUsername, @RequestParam("batchesId") List<String> batchesId) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
                         HttpStatus.OK,

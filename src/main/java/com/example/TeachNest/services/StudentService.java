@@ -22,6 +22,10 @@ public class StudentService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+    public Student getStudentByUsername(String username) {
+        return studentRepository.findById(username).get();
+    }
+
     public Student registerStudent(Student student) {
         student.setPassword(bCryptPasswordEncoder.encode(student.getPassword()));
         return studentRepository.insert(student);
