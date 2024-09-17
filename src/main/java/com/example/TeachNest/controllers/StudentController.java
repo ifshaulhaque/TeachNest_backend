@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -95,6 +96,17 @@ public class StudentController {
                         HttpStatus.OK,
                         "Attendances marked successfully",
                         studentService.addStudentAttendanceList(studentAttendanceList)
+                )
+        );
+    }
+
+    @GetMapping("/attendances")
+    public ResponseEntity<ResponseModel> gettingStudentAttendance(@RequestParam("batchId") String batchId, @RequestParam("date") Date date) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "student attendence fetched for date: " + date + ";",
+                        studentService.getStudentAttendance(batchId, date)
                 )
         );
     }

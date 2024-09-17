@@ -1,7 +1,6 @@
 package com.example.TeachNest.entities;
 
 import com.example.TeachNest.enums.AttendanceStatus;
-import jakarta.annotation.Nonnull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -14,7 +13,7 @@ import java.util.Date;
 @Document(collection = "attendances")
 public class StudentAttendance {
     @Id
-    private String Id;
+    private String id;
     @NotBlank(message = "student username is a required field")
     private String studentUsername;
     private String instituteUsername;
@@ -23,4 +22,6 @@ public class StudentAttendance {
     private Date date;
     @NotNull(message = "attendance status is a required field")
     private AttendanceStatus attendanceStatus;
+    @NotNull(message = "batch is required")
+    private String batchId;
 }

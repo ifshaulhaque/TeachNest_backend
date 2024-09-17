@@ -57,4 +57,8 @@ public class StudentService {
     public List<Student> getStudentFromBatch(String batchId) {
         return studentRepository.findByBatchesIdContaining(batchId);
     }
+
+    public List<StudentAttendance> getStudentAttendance(String batchId, Date date) {
+        return studentAttendanceRepository.findByBatchIdAndDate(batchId, date);
+    }
 }
