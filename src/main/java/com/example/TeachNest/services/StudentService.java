@@ -68,6 +68,17 @@ public class StudentService {
     }
 
     public List<StudentAttendance> getStudentAttendance(String batchId, Date date) {
-        return studentAttendanceRepository.findByBatchIdAndDate(batchId, date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date startOfDay = calendar.getTime();
+
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date endOfDay = calendar.getTime();
+
+        return studentAttendanceRepository.findByBatchIdAndDateRange(batchId, startOfDay, endOfDay);
     }
 }

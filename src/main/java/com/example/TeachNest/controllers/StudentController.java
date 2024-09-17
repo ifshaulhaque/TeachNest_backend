@@ -7,6 +7,7 @@ import com.example.TeachNest.services.StudentService;
 import com.example.TeachNest.utils.ResponseUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -90,7 +91,7 @@ public class StudentController {
     }
 
     @GetMapping("/attendances")
-    public ResponseEntity<ResponseModel> gettingStudentAttendance(@RequestParam("batchId") String batchId, @RequestParam("date") Date date) {
+    public ResponseEntity<ResponseModel> gettingStudentAttendance(@RequestParam("batchId") String batchId, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
                         HttpStatus.OK,
