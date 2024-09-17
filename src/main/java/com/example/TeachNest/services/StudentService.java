@@ -2,6 +2,7 @@ package com.example.TeachNest.services;
 
 import com.example.TeachNest.entities.Student;
 import com.example.TeachNest.entities.StudentAttendance;
+import com.example.TeachNest.enums.AttendanceStatus;
 import com.example.TeachNest.repositories.StudentAttendanceRepository;
 import com.example.TeachNest.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,19 @@ public class StudentService {
     }
 
     public List<StudentAttendance> addStudentAttendanceList(List<StudentAttendance> studentAttendanceList) {
+        List<StudentAttendance> presentAttendance = new ArrayList<>();
+        List<StudentAttendance> absentAttendance = new ArrayList<>();
+
         for (StudentAttendance studentAttendance: studentAttendanceList) {
             studentAttendance.setId(studentAttendance.getDate().getTime() + "10100110" + studentAttendance.getBatchId() + "10100110" + studentAttendance.getStudentUsername());
+            if (studentAttendance.getAttendanceStatus().equals(AttendanceStatus.PRESENT)) {
+                presentAttendance.add(studentAttendance);
+            } else {
+                absentAttendance.add(studentAttendance);
+            }
         }
-        return studentAttendanceRepository.saveAll(studentAttendanceList);
+        studentAttendanceRepository.deleteAll(absentAttendance);
+        return studentAttendanceRepository.saveAll(presentAttendance);
     }
 
     public Student updateBatch(String studentUsername, List<String> batchId) {
