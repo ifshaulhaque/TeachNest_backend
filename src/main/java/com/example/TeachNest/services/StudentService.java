@@ -40,12 +40,11 @@ public class StudentService {
         return isTeacherExist ? HttpStatus.FOUND : HttpStatus.NOT_FOUND;
     }
 
-    public StudentAttendance addStudentAttendance(StudentAttendance studentAttendance) {
-        return studentAttendanceRepository.insert(studentAttendance);
-    }
-
     public List<StudentAttendance> addStudentAttendanceList(List<StudentAttendance> studentAttendanceList) {
-        return studentAttendanceRepository.insert(studentAttendanceList);
+        for (StudentAttendance studentAttendance: studentAttendanceList) {
+            studentAttendance.setId(studentAttendance.getDate().getTime() + "10100110" + studentAttendance.getBatchId() + "10100110" + studentAttendance.getStudentUsername());
+        }
+        return studentAttendanceRepository.saveAll(studentAttendanceList);
     }
 
     public Student updateBatch(String studentUsername, List<String> batchId) {

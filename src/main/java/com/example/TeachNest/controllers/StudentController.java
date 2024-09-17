@@ -78,17 +78,6 @@ public class StudentController {
         }
     }
 
-    @PostMapping("/attendance")
-    public ResponseEntity<ResponseModel> addStudentAttendance(@Valid @RequestBody StudentAttendance studentAttendance) {
-        return ResponseUtil.getResponse(
-                new ResponseModel(
-                        HttpStatus.OK,
-                        "Attendance marked successfully",
-                        studentService.addStudentAttendance(studentAttendance)
-                )
-        );
-    }
-
     @PostMapping("/attendances")
     public ResponseEntity<ResponseModel> addStudentAttendanceList(@Valid @RequestBody List<StudentAttendance> studentAttendanceList) {
         return ResponseUtil.getResponse(
