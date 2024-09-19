@@ -101,6 +101,17 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/attendances/{instituteUsername}")
+    public ResponseEntity<ResponseModel> gettingStudentAttendanceOfInstitute(@PathVariable("instituteUsername") String instituteUsername) {
+        return ResponseUtil.getResponse(
+                new ResponseModel(
+                        HttpStatus.OK,
+                        "fetching successfully",
+                        studentService.getStudentAttendanceOfInstitute(instituteUsername)
+                )
+        );
+    }
+
     @PatchMapping("/batch")
     public ResponseEntity<ResponseModel> updateBatch(@RequestParam("studentUsername") String studentUsername, @RequestParam("batchesId") List<String> batchesId) {
         return ResponseUtil.getResponse(

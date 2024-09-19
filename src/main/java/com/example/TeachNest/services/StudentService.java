@@ -81,4 +81,8 @@ public class StudentService {
 
         return studentAttendanceRepository.findByBatchIdAndDateRange(batchId, startOfDay, endOfDay);
     }
+
+    public List<StudentAttendance> getStudentAttendanceOfInstitute(String instituteUsername) {
+        return studentAttendanceRepository.findByInstituteUsername(instituteUsername);
+    }
 }
