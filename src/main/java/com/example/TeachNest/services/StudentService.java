@@ -46,7 +46,6 @@ public class StudentService {
         List<StudentAttendance> absentAttendance = new ArrayList<>();
 
         for (StudentAttendance studentAttendance: studentAttendanceList) {
-            studentAttendance.setId(studentAttendance.getDate().getTime() + "10100110" + studentAttendance.getBatchId() + "10100110" + studentAttendance.getStudentUsername());
             if (studentAttendance.getAttendanceStatus().equals(AttendanceStatus.PRESENT)) {
                 presentAttendance.add(studentAttendance);
             } else {
