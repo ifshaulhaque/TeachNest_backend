@@ -80,23 +80,23 @@ public class StudentController {
     }
 
     @PostMapping("/attendances")
-    public ResponseEntity<ResponseModel> addStudentAttendanceList(@Valid @RequestBody List<StudentAttendance> studentAttendanceList) {
+    public ResponseEntity<ResponseModel> addStudentAttendanceList(@Valid @RequestBody StudentAttendance studentAttendance) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
                         HttpStatus.OK,
                         "Attendances marked successfully",
-                        studentService.addStudentAttendanceList(studentAttendanceList)
+                        studentService.addStudentAttendanceList(studentAttendance)
                 )
         );
     }
 
     @GetMapping("/attendances")
-    public ResponseEntity<ResponseModel> gettingStudentAttendance(@RequestParam("batchId") String batchId, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+    public ResponseEntity<ResponseModel> gettingStudentAttendance(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date, @RequestParam("batchId") String batchId) {
         return ResponseUtil.getResponse(
                 new ResponseModel(
                         HttpStatus.OK,
                         "student attendence fetched for date: " + date + ";",
-                        studentService.getStudentAttendance(batchId, date)
+                        studentService.getStudentAttendance(date, batchId)
                 )
         );
     }

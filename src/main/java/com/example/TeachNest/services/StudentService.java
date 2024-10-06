@@ -5,6 +5,8 @@ import com.example.TeachNest.entities.StudentAttendance;
 import com.example.TeachNest.enums.AttendanceStatus;
 import com.example.TeachNest.repositories.StudentAttendanceRepository;
 import com.example.TeachNest.repositories.StudentRepository;
+import com.example.TeachNest.utils.DateUtils;
+import com.example.TeachNest.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,19 +43,9 @@ public class StudentService {
         return isTeacherExist ? HttpStatus.FOUND : HttpStatus.NOT_FOUND;
     }
 
-    public List<StudentAttendance> addStudentAttendanceList(List<StudentAttendance> studentAttendanceList) {
-        List<StudentAttendance> presentAttendance = new ArrayList<>();
-        List<StudentAttendance> absentAttendance = new ArrayList<>();
-
-        for (StudentAttendance studentAttendance: studentAttendanceList) {
-            if (studentAttendance.getAttendanceStatus().equals(AttendanceStatus.PRESENT)) {
-                presentAttendance.add(studentAttendance);
-            } else {
-                absentAttendance.add(studentAttendance);
-            }
-        }
-        studentAttendanceRepository.deleteAll(absentAttendance);
-        return studentAttendanceRepository.saveAll(presentAttendance);
+    public StudentAttendance addStudentAttendanceList(StudentAttendance studentAttendance) {
+        studentAttendance.setId(IdUtils.getAttendanceId(studentAttendance));
+        return studentAttendanceRepository.save(studentAttendance);
     }
 
     public Student updateBatch(String studentUsername, List<String> batchId) {
@@ -66,19 +58,8 @@ public class StudentService {
         return studentRepository.findByBatchesIdContaining(batchId);
     }
 
-    public List<StudentAttendance> getStudentAttendance(String batchId, Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date startOfDay = calendar.getTime();
-
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        Date endOfDay = calendar.getTime();
-
-        return studentAttendanceRepository.findByBatchIdAndDateRange(batchId, startOfDay, endOfDay);
+    public StudentAttendance getStudentAttendance(Date date, String batchId) {
+        return studentAttendanceRepository.findById(IdUtils.getAttendanceId(date, batchId)).get();
     }
 
     public List<StudentAttendance> getStudentAttendanceOfInstitute(String instituteUsername) {
